@@ -1,38 +1,29 @@
 packages:
   all:
-    compiler:: [intel@2022.0.2, gcc@10.2.0]
-    #compiler:: [intel@18.0.5]
+    compiler:: [intel@2023.1.0, gcc@12.2.0]
     providers:
-      mpi:: [intel-oneapi-mpi@2021.5.1, openmpi@4.0.4]
-      #mpi:: [intel-mpi@2018.5.274]
+      mpi:: [intel-oneapi-mpi@2021.7.1, openmpi@4.1.6]
 
 ### MPI, Python, MKL
   mpi:
     buildable: False
   intel-oneapi-mpi:
     externals:
-    - spec: intel-oneapi-mpi@2021.5.1%intel@2022.0.2
-      prefix: /apps/intel-2022.1.2/intel-2022.1.2
+    - spec: intel-oneapi-mpi@2021.7.1%intel@2023.1.0
+      prefix: /apps/spack-managed/oneapi-2023.1.0/intel-oneapi-mpi-2021.9.0-a66eaipzsnyrdgaqzxmqmqz64qzvhkse
       modules:
-      - impi/2022.1.2
-  intel-mpi:
-    externals:
-    - spec: intel-mpi@2018.5.274%intel@18.0.5
-      prefix: /apps/intel-2018/intel-2018.u4/compilers_and_libraries_2018.5.274/linux/mpi
-      modules:
-      - impi/2018.4
+      - intel-oneapi-mpi/2021.7.1
   openmpi:
     externals:
-    - spec: openmpi@4.0.4%gcc@10.2.0~cuda~cxx~cxx_exceptions~java~memchecker+pmi~static~wrapper-rpath
-        fabrics=ucx schedulers=slurm +internal-hwloc +two_level_namespace
-      prefix: /apps/gcc-10.2.0/openmpi-4.0.4/openmpi-4.0.4
+    - spec: openmpi@4.1.6%gcc@12.2.0~cuda~cxx~cxx_exceptions~java~memchecker+pmi~static~wrapper-rpath schedulers=slurm
+      prefix: /work/noaa/epic/role-epic/spack-stack/orion/installs/openmpi/4.1.6
       modules:
-      - openmpi/4.0.4
+      - gnu/12.2.0
+      - openmpi/4.1.6
 
 ### Modifications of common packages
-  # Temporary - see https://github.com/spack/spack/issues/41947
   cdo:
-    require: '@2.0.5'
+    require: '@2.2.0'
 
 ### All other external packages listed alphabetically
   autoconf:
@@ -100,14 +91,14 @@ packages:
       prefix: /usr
   git:
     externals:
-    - spec: git@2.28.0+tcltk
-      prefix: /apps/git-2.28.0
+    - spec: git@2.38.1+tcltk
+      prefix: /apps/spack-managed/gcc-11.3.1/git-2.38.1-3cbnamp5gvmf23licy5woaucdnoswtdi
     - spec: git@1.8.3.1~tcltk
       prefix: /usr
   git-lfs:
     externals:
-    - spec: git-lfs@2.12.0
-      prefix: /apps/git-2.28.0
+    - spec: git-lfs@3.1.2
+      prefix: /apps/spack-managed/gcc-11.3.1/git-lfs-3.1.2-sjfqfgha27na65g3lrcqamncnryjoa7l
   gmake:
     externals:
     - spec: gmake@3.82
